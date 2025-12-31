@@ -25,13 +25,6 @@ jobs:
         with:
           ref: hug 
 
-      # 【新增步骤】这里利用 Bash 将用户名转为全小写，防止 Docker 报错
-      - name: Lowercase the repo owner
-        run: |
-          echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
-        env:
-          OWNER: '${{ github.repository_owner }}'
-
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -47,9 +40,12 @@ jobs:
         with:
           context: .
           push: true
-          # 【修改说明】这里改用了上面生成的小写变量 env.OWNER_LC
+          # ⚠️ 关键修改点：
+          # 我直接把 NP-student 改成了 np-student (全小写)
+          # 我看你日志里用的是 hurter，但你发我的文件里是 hugger。
+          # 这里我写的是 hugger，如果你需要 hurter，请手动把下面这行最后的单词改一下。
           tags: |
-            ghcr.io/${{ env.OWNER_LC }}/hugger:latest
+            ghcr.io/np-student/hugger:latest
           labels: |
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
             org.opencontainers.image.description=http server
