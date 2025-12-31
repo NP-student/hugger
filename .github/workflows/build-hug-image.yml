@@ -40,8 +40,12 @@ jobs:
         with:
           context: .
           push: true
+          # ⚠️ 关键修改点：
+          # 我直接把 NP-student 改成了 np-student (全小写)
+          # 我看你日志里用的是 hurter，但你发我的文件里是 hugger。
+          # 这里我写的是 hugger，如果你需要 hurter，请手动把下面这行最后的单词改一下。
           tags: |
-            ghcr.io/np-student/hurter:latest
+            ghcr.io/np-student/hugger:latest
           labels: |
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
             org.opencontainers.image.description=http server
